@@ -4,6 +4,8 @@ github.com/koykov/inspector v1.4.4 h1:mzNQsg96zyqGS/zmVyy9Abzz1U+ZVpw5v1hGbhZ2l2
 github.com/koykov/inspector v1.4.4/go.mod h1:w047/qShAV7uuaICjJ6QeCpPNeCsK7gPPtyXnWFhj8A=
 github.com/koykov/x2bytes v1.0.1 h1:kfo9Pqmip+6s6zbQYgeNSgOA3UbyQNVmaCzkMrJdTME=
 github.com/koykov/x2bytes v1.0.1/go.mod h1:5VHo/Vc0NsGBvzwg5wMrCNrI+fL+DbSUgFW4FVRzlzs=
+github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
+github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 golang.org/x/mod v0.12.0 h1:rmsUpXtvNzj340zd98LZ4KntptpfRHwpFOHG188oHXc=
 golang.org/x/sys v0.10.0 h1:SqMFp9UcQJZa+pmYuAKjd9xq1f0j5rLcDIk0mj4qAsA=
 golang.org/x/sys v0.10.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=

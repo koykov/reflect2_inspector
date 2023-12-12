@@ -2,6 +2,7 @@ package reflect2_inspector
 
 import (
 	"github.com/koykov/inspector"
+	"github.com/modern-go/reflect2"
 )
 
 type Inspector struct {
@@ -12,13 +13,37 @@ func (i Inspector) TypeName() string {
 	return "reflect2"
 }
 
-func (i Inspector) Get(src any, _ ...string) (any, error) {
-	// todo implement me
-	return nil, nil
+func (i Inspector) Get(src any, path ...string) (any, error) {
+	var buf any
+	err := i.GetTo(src, &buf, path...)
+	return buf, err
 }
 
-func (i Inspector) GetTo(src any, buf *any, _ ...string) error {
-	// todo implement me
+func (i Inspector) GetTo(src any, buf *any, path ...string) error {
+	if src == nil {
+		return nil
+	}
+	t := reflect2.TypeOf(src)
+	switch x := t.(type) {
+	case reflect2.ArrayType:
+		//
+	case reflect2.SliceType:
+		//
+	case reflect2.StructType:
+		n := x.NumField()
+		for j := 0; j < n; j++ {
+			f := x.Field(j)
+			_ = f
+		}
+	case reflect2.StructField:
+		//
+	case reflect2.MapType:
+		//
+	case reflect2.PtrType:
+		//
+	default:
+		return inspector.ErrUnsupportedType
+	}
 	return nil
 }
 
