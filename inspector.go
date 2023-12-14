@@ -2,7 +2,7 @@ package reflect2_inspector
 
 import (
 	"github.com/koykov/inspector"
-	"github.com/modern-go/reflect2"
+	r2 "github.com/modern-go/reflect2"
 )
 
 type Inspector struct {
@@ -10,7 +10,7 @@ type Inspector struct {
 }
 
 func (i Inspector) TypeName() string {
-	return "reflect2"
+	return "r2"
 }
 
 func (i Inspector) Get(src any, path ...string) (any, error) {
@@ -23,28 +23,32 @@ func (i Inspector) GetTo(src any, buf *any, path ...string) error {
 	if src == nil {
 		return nil
 	}
-	t := reflect2.TypeOf(src)
-	switch x := t.(type) {
-	case reflect2.ArrayType:
-		//
-	case reflect2.SliceType:
-		//
-	case reflect2.StructType:
-		n := x.NumField()
-		for j := 0; j < n; j++ {
-			f := x.Field(j)
-			_ = f
-		}
-	case reflect2.StructField:
-		//
-	case reflect2.MapType:
-		//
-	case reflect2.PtrType:
-		//
-	default:
-		return inspector.ErrUnsupportedType
-	}
+	t := r2.TypeOf(src)
+	i.dive1(buf, t, path)
 	return nil
+}
+
+func (i Inspector) dive1(buf *any, root r2.Type, path []string) {
+	switch x := any(root).(type) {
+	case *r2.UnsafePtrType:
+		v := x.Elem()
+		i.dive1(buf, v, path)
+	case *r2.UnsafeStructType:
+		if len(path) == 0 {
+			return
+		}
+		f := x.FieldByName(path[0])
+		if f == nil {
+			return
+		}
+		if len(path) == 1 {
+			*buf = f.Type().Indirect(*buf)
+			// *buf = f.Get(*buf)
+			return
+		}
+		t := f.Type()
+		i.dive1(buf, t, path[1:])
+	}
 }
 
 func (i Inspector) Set(_, _ any, _ ...string) error {
