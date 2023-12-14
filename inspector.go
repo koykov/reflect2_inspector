@@ -42,8 +42,10 @@ func (i Inspector) dive1(buf *any, root r2.Type, path []string) {
 			return
 		}
 		if len(path) == 1 {
-			*buf = f.Type().Indirect(*buf)
-			// *buf = f.Get(*buf)
+			tf := f.Type()
+			ptr := tf.UnsafeNew()
+			ptr = f.UnsafeGet(ptr)
+			*buf = tf.UnsafeIndirect(ptr)
 			return
 		}
 		t := f.Type()
