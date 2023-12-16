@@ -10,7 +10,7 @@ type Inspector struct {
 }
 
 func (i Inspector) TypeName() string {
-	return "r2"
+	return "reflect2"
 }
 
 func (i Inspector) Get(src any, path ...string) (any, error) {
